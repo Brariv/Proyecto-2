@@ -1,23 +1,28 @@
 public class CalculoKW {
     private static double Kwatts;
     private static double valorFactura;
-    private static double precioKwattsNS = 1.36;
-    private static double precioKwattsS = 1.28;
+    private static double facturaIVA;
+    private static double precioKwattsNS = 1.75;
+    private static double precioKwattsS = 1.5;
 
-    public double Calcular(int KW){
+    public void Calcular(double KW){
         Kwatts = KW;
         if (Kwatts <= 300){
             valorFactura = Kwatts * precioKwattsS;
         } else if( Kwatts > 300) {
             valorFactura = Kwatts * precioKwattsNS;
         }
-        valorFactura = valorFactura * 1.12;
+        facturaIVA = valorFactura * 1.12;
+        facturaIVA = facturaIVA *1.10;
         
-        return valorFactura;
     }
 
-    public static double getKwatts() {
+    public double getKwatts() {
         return Kwatts;
+    }
+
+    public double getFacturaIva() {
+        return facturaIVA;
     }
 
 }

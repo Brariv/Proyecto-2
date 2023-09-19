@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class MenuUI {
     public static void main(String[] args) {
+        CalculoFS calculoFS = new CalculoFS();
+        CalculoKW calculoKW = new CalculoKW();
         Scanner scan = new Scanner(System.in);
         System.out.println("Bienvenido!"+"\n"); 
         System.out.println("Opciones:");
@@ -14,16 +16,19 @@ public class MenuUI {
 
         if (Opciones.equals("1")){
             System.out.println("Ingrese cuanto paga al mes por su factura de electricidad:");
-            int pagoM = scan.nextInt();
+            double pagoM = scan.nextInt();
+            calculoFS.Calcular(pagoM);
+
             
         } else if (Opciones.equals("2")){
             System.out.println("Ingrese cuantos KiloWatts consume al mes:");
-            int Kwatts = scan.nextInt();
+            double Kwatts = scan.nextInt();
+            calculoKW.Calcular(Kwatts);
             
         } else if (Opciones.equals("3")){
             System.out.println("Informacion de tarifas y precios obtenidas de:");
-            System.out.println("Tarifas: LuzSA");
-            System.out.println("Precios: PanelesGT");
+            System.out.println("Tarifas: Eegsa");
+            System.out.println("Precios: Aisa (Solar)");
             
         }
     }
