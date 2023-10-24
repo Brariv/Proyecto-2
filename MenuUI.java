@@ -1,6 +1,9 @@
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class MenuUI {
+    
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     public static void main(String[] args) {
         CalculoFS calculoFS = new CalculoFS();
         CalculoKW calculoKW = new CalculoKW();
@@ -14,6 +17,7 @@ public class MenuUI {
         System.out.println("4.Salir");
         String Opciones = scan.nextLine();
 
+        
 
         if (Opciones.equals("1")){
             System.out.println("Ingrese cuanto paga al mes por su factura de electricidad:");
@@ -23,19 +27,19 @@ public class MenuUI {
             System.out.println("Su consumo mensual de energía es de: "+Kwatts+"Kwatts");
             double preciopanel = calculoPS.Calcular(Kwatts);
             double tarifarestante = calculoPS.getFacturaRestante();
-            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+preciopanel);
-            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+tarifarestante);
+            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
+            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
 
         } else if (Opciones.equals("2")){
             System.out.println("Ingrese cuantos KiloWatts consume al mes:");
             double Kwatts = scan.nextInt();
             calculoKW.Calcular(Kwatts);
             double tarifan = calculoKW.getFacturaIva();
-            System.out.println("Su tarifa actual es de: Q"+tarifan);
+            System.out.println("Su tarifa actual es de: Q"+df.format(tarifan));
             double preciopanel = calculoPS.Calcular(Kwatts);
             double tarifarestante = calculoPS.getFacturaRestante();
-            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+preciopanel);
-            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+tarifarestante);
+            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
+            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
 
 
 

@@ -69,10 +69,15 @@ public class CalculoPS {
 
     private double valorFactura(double KWD, double panelCapacidad){
         double KWR = KWD - panelCapacidad;
-        double KWM = KWR * 30;
-        calculoKW.Calcular(KWM);
-        double facturaIVA = calculoKW.getFacturaIva();
-        return facturaIVA;
+        if (KWR < 0){
+            KWR = 0;
+            return KWR;
+        }else{
+            double KWM = KWR * 30;
+            calculoKW.Calcular(KWM);
+            double facturaIVA = calculoKW.getFacturaIva();
+            return facturaIVA;
+        }
     }
 
     public double getFacturaRestante(){
