@@ -5,6 +5,7 @@ public class MenuUI {
     
     private static final DecimalFormat df = new DecimalFormat("0.00");
     public static void main(String[] args) {
+
         CalculoFS calculoFS = new CalculoFS();
         CalculoKW calculoKW = new CalculoKW();
         CalculoPS calculoPS = new CalculoPS();
@@ -32,6 +33,7 @@ public class MenuUI {
             double preciopanel = calculoPS.Calcular(Kwatts);
             double tarifarestante = calculoPS.getFacturaRestante();
             System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
+            System.out.println("Mas un costo de instalacion de Q4500.00");
             System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
 
         } else if (Opciones.equals("2")){

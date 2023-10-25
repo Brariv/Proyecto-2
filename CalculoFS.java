@@ -14,7 +14,7 @@ public class CalculoFS {
 
         if (valorFactura <= 523.25){
            Kwatts = valorFactura / precioKwattsS;
-        } else if( Kwatts > 523.25) {
+        } else if( valorFactura > 523.25) {
            Kwatts = valorFactura / precioKwattsNS;
         }
         
