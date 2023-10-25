@@ -8,15 +8,19 @@ public class MenuUI {
         CalculoFS calculoFS = new CalculoFS();
         CalculoKW calculoKW = new CalculoKW();
         CalculoPS calculoPS = new CalculoPS();
+        ElectrodomesticosManager manager = new ElectrodomesticosList();
         Scanner scan = new Scanner(System.in);
         System.out.println("Bienvenido!"+"\n"); 
         System.out.println("Opciones:");
         System.out.println("1.Calcular tarifa con pago mensual");
         System.out.println("2.Calcular tarifa con KiloWatts");
         System.out.println("3.Mostrar fuentes de informacion");
-        System.out.println("4.Salir");
+        System.out.println("4. Calcular por electrodoméstico");
+        System.out.println("5. Salir");
         String Opciones = scan.nextLine();
-
+        String nombre;
+        double consumoEnergetico;
+        int cantidad;
         
 
         if (Opciones.equals("1")){
@@ -48,6 +52,30 @@ public class MenuUI {
             System.out.println("Tarifas: Eegsa");
             System.out.println("Precios: Aisa (Solar)");
             
+        }
+        else if (Opciones.equals("4")){
+            System.out.println("");
+            while (true){
+                System.out.println("Ingrese el electrodomestico que desea agregar: ");
+                nombre = scan.nextLine();
+                nombre = scan.nextLine();
+                System.out.println("Ingrese el consumo energetico del electrodomestico: ");
+                consumoEnergetico = scan.nextDouble();
+                System.out.println("Ingrese la cantidad de electrodomesticos: ");
+                cantidad = scan.nextInt();
+                Electrodomestico electrodomestico = new Electrodomestico(nombre, consumoEnergetico, cantidad);
+                manager.agregarElectrodomestico(electrodomestico);
+                System.out.println("Electrodomestico agregado!");
+                System.out.println("Liste de electrodomésticos agregados");
+                manager.mostrarElectrodomesticos();
+                System.out.println("Desea agregar otro electrodomestico? (s/n)");
+                String respuesta = scan.next();
+                if (respuesta.equals("n")) {
+                    manager.calcularConsumoTotal();
+                    break;
+
+                }
+            }
         }
     }
 }

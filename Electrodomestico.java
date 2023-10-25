@@ -3,7 +3,7 @@ import java.util.List;
 
 interface ElectrodomesticosManager {
     void agregarElectrodomestico(Electrodomestico electrodomestico);
-    double calcularConsumoTotal();
+    void calcularConsumoTotal();
     void mostrarElectrodomesticos();
 }
 
@@ -37,12 +37,13 @@ class ElectrodomesticosList implements ElectrodomesticosManager {
     }
 
     @Override
-    public double calcularConsumoTotal() {
+    public void calcularConsumoTotal() {
         double consumoTotal = 0;
         for (Electrodomestico electrodomestico : electrodomesticos) {
             consumoTotal += electrodomestico.calcularConsumoMensual();
         }
-        return consumoTotal;
+        System.out.println("Consumo total: " + consumoTotal + " kilowatts");
+        
     }
 
     @Override
