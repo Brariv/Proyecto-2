@@ -1,17 +1,20 @@
 public class ValorFuturo {
     
-    public double ValorPresenteNeto(double Vp, double g, double a){
+    public Boolean ValorPresenteNeto(double Vp, double g, double a){
         double VPN = 0;
         double p = g - a;
+        Vp = Vp + 4500;
         
-        
-        
-        for (int i = 1; i < 8; i++){
+        for (int i = 1; i < 9; i++){
             double CF = Calcular(p, i);
             VPN = VPN + (CF) / Math.pow((1+0.045),i);
         }
         VPN = VPN - Vp;
-        return VPN;
+        if (VPN > 0){
+            return true;
+        }else {
+            return false;
+        }
     }
     
     
