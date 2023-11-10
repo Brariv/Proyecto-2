@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.Random;
 
 public class MenuUI {
     
@@ -8,12 +10,11 @@ public class MenuUI {
 
         CalculoFS calculoFS = new CalculoFS();
         CalculoKW calculoKW = new CalculoKW();
-        CalculoPS calculoPS = new CalculoPS();
-        ValorFuturo valorFuturo = new ValorFuturo();
         ElectrodomesticosManager manager = new ElectrodomesticosList();
         Scanner scan = new Scanner(System.in);
         
-        
+
+
         System.out.println("Bienvenido!"+"\n"); 
         System.out.println("Opciones:");
         System.out.println("1.Calcular tarifa con pago mensual");
@@ -32,18 +33,10 @@ public class MenuUI {
             double pagoM = scan.nextInt();
             calculoFS.Calcular(pagoM);
             double Kwatts = calculoFS.getKwatts();
-            System.out.println("Su consumo mensual de energía es de: "+Kwatts+"Kwatts");
-            double preciopanel = calculoPS.Calcular(Kwatts);
-            double tarifarestante = calculoPS.getFacturaRestante();
-            System.out.println("El panel solar que mas le conviene es de capacidad de: "+calculoPS.getCapacidad()+"Kwatts");
-            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
-            System.out.println("Mas un costo de instalacion de Q4500.00");
-            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
-            if (valorFuturo.ValorPresenteNeto(preciopanel, pagoM, tarifarestante)){
-                System.out.println("Le conviene comprar el panel solar, la compra se compensara en 8 años");
-            } else {
-                System.out.println("No le conviene comprar el panel solar");
-            }
+            System.out.println("Su consumo mensual de energía es de: "+df.format(Kwatts)+"Kwatts");
+            // Print results
+            results(Kwatts, pagoM);
+
 
         } else if (Opciones.equals("2")){
             System.out.println("Ingrese cuantos KiloWatts consume al mes:");
@@ -51,17 +44,8 @@ public class MenuUI {
             calculoKW.Calcular(Kwatts);
             double tarifan = calculoKW.getFacturaIva();
             System.out.println("Su tarifa actual es de: Q"+df.format(tarifan));
-            double preciopanel = calculoPS.Calcular(Kwatts);
-            double tarifarestante = calculoPS.getFacturaRestante();
-            System.out.println("El panel solar que mas le conviene es de capacidad de: "+calculoPS.getCapacidad()+"Kwatts");
-            System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
-            System.out.println("Mas un costo de instalacion de Q4500.00");
-            System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
-            if (valorFuturo.ValorPresenteNeto(preciopanel, tarifan, tarifarestante)){
-                System.out.println("Le conviene comprar el panel solar, la compra se compensara en 8 años");
-            } else {
-                System.out.println("No le conviene comprar el panel solar");
-            }
+            //Print results
+            results(Kwatts, tarifan);
 
 
 
@@ -95,5 +79,37 @@ public class MenuUI {
                 }
             }
         }
+    }
+
+
+    public static void results(double Kwatts, double pagoM){
+        ArrayList<String> newT = new ArrayList<String>();
+        CalculoPS calculoPS = new CalculoPS();
+        ValorFuturo valorFuturo = new ValorFuturo();
+        CreatorCSV creatorCSV = new CreatorCSV();
+
+        double preciopanel = calculoPS.Calcular(Kwatts);
+        double tarifarestante = calculoPS.getFacturaRestante();
+
+        newT.add(df.format(Kwatts));
+        newT.add(df.format(pagoM));
+        System.out.println("El panel solar que mas le conviene es de capacidad de: "+calculoPS.getCapacidad()+"Kwatts");
+        newT.add(Double.toString(calculoPS.getCapacidad()));
+        System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
+        newT.add(Double.toString(preciopanel));
+        System.out.println("Mas un costo de instalacion de Q4500.00");
+        System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
+        newT.add(df.format(tarifarestante));
+        if (valorFuturo.ValorPresenteNeto(preciopanel, pagoM, tarifarestante)){
+            System.out.println("Le conviene comprar el panel solar, la compra se compensara en 8 años");
+            newT.add("Si");
+        } else {
+            System.out.println("No le conviene comprar el panel solar");
+            newT.add("No");
+        }
+        Random random = new Random(); 
+        int N = random.nextInt(100) + 1;
+        
+        creatorCSV.CreateFileCSV(N, newT);
     }
 }
