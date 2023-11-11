@@ -3,6 +3,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Random;
 
+
 public class MenuUI {
     
     private static final DecimalFormat df = new DecimalFormat("0.00");
