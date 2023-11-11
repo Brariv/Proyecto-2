@@ -1,5 +1,12 @@
 public interface Funciones {
-    public void Calcular(double KW);
-    public double getKwatts();
-    public double getFacturaIva();
+
+    void menu();
+    void KiloWatts();
+    void PagoMensual();
+    void info();
+    void Electrodomesticos();
+    void Error();
+    Boolean run();
+    void Salir();
+    int Show();
 } 

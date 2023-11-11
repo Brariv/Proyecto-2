@@ -1,4 +1,4 @@
-public class CalculoFS implements Funciones{
+public class CalculoFS{
     private static double Kwatts;
     private static double valorFactura;
     private static double facturaIVA;

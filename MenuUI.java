@@ -4,17 +4,15 @@ import java.util.Scanner;
 import java.util.Random;
 
 
-public class MenuUI {
+public class MenuUI implements Funciones {
     
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    public static void main(String[] args) {
-
-        CalculoFS calculoFS = new CalculoFS();
-        CalculoKW calculoKW = new CalculoKW();
-        ElectrodomesticosManager manager = new ElectrodomesticosList();
-        Scanner scan = new Scanner(System.in);
-        
-
+    Scanner scan = new Scanner(System.in);
+    int Exit = 0;
+    int opcion = 0;
+    
+    @Override
+    public void menu(){
 
         System.out.println("Bienvenido!"+"\n"); 
         System.out.println("Opciones:");
@@ -24,66 +22,33 @@ public class MenuUI {
         System.out.println("4.Calcular por electrodoméstico");
         System.out.println("5.Salir");
         String Opciones = scan.nextLine();
-        String nombre;
-        double consumoEnergetico;
-        int cantidad;
+        
         
 
         if (Opciones.equals("1")){
-            System.out.println("Ingrese cuanto paga al mes por su factura de electricidad:");
-            double pagoM = scan.nextInt();
-            calculoFS.Calcular(pagoM);
-            double Kwatts = calculoFS.getKwatts();
-            System.out.println("Su consumo mensual de energía es de: "+df.format(Kwatts)+"Kwatts");
-            // Print results
-            results(Kwatts, pagoM);
+            opcion = 1;
 
 
         } else if (Opciones.equals("2")){
-            System.out.println("Ingrese cuantos KiloWatts consume al mes:");
-            double Kwatts = scan.nextInt();
-            calculoKW.Calcular(Kwatts);
-            double tarifan = calculoKW.getFacturaIva();
-            System.out.println("Su tarifa actual es de: Q"+df.format(tarifan));
-            //Print results
-            results(Kwatts, tarifan);
-
-
+            opcion = 2;
 
         } else if (Opciones.equals("3")){
-            System.out.println("Informacion de tarifas y precios obtenidas de:");
-            System.out.println("Tarifas: Eegsa");
-            System.out.println("Precios: Aisa (Solar)");
+            opcion = 3;
             
         }
         else if (Opciones.equals("4")){
-            System.out.println("");
-            while (true){
-                System.out.println("Ingrese el electrodomestico que desea agregar: ");
-                nombre = scan.nextLine();
-                nombre = scan.nextLine();
-                System.out.println("Ingrese el consumo energetico del electrodomestico: ");
-                consumoEnergetico = scan.nextDouble();
-                System.out.println("Ingrese la cantidad de electrodomesticos: ");
-                cantidad = scan.nextInt();
-                Electrodomestico electrodomestico = new Electrodomestico(nombre, consumoEnergetico, cantidad);
-                manager.agregarElectrodomestico(electrodomestico);
-                System.out.println("Electrodomestico agregado!");
-                System.out.println("Liste de electrodomésticos agregados");
-                manager.mostrarElectrodomesticos();
-                System.out.println("Desea agregar otro electrodomestico? (s/n)");
-                String respuesta = scan.next();
-                if (respuesta.equals("n")) {
-                    manager.calcularConsumoTotal();
-                    break;
-
-                }
-            }
+            opcion = 4;
+        }
+        else if (Opciones.equals("5")){
+            opcion = 5;
+        }
+        else{
+            opcion = 6;
         }
     }
 
 
-    public static void results(double Kwatts, double pagoM){
+    public static void calcular(double Kwatts, double pagoM){
         ArrayList<String> newT = new ArrayList<String>();
         CalculoPS calculoPS = new CalculoPS();
         ValorFuturo valorFuturo = new ValorFuturo();
@@ -112,5 +77,106 @@ public class MenuUI {
         int N = random.nextInt(100) + 1;
         
         creatorCSV.CreateFileCSV(N, newT);
+    }
+
+    @Override
+    public void KiloWatts(){
+        CalculoKW calculoKW = new CalculoKW();
+        System.out.println("Ingrese cuantos KiloWatts consume al mes:");
+        double Kwatts = scan.nextInt();
+        calculoKW.Calcular(Kwatts);
+        double tarifan = calculoKW.getFacturaIva();
+        System.out.println("Su tarifa actual es de: Q"+df.format(tarifan));
+        //Print results
+        calcular(Kwatts, tarifan);
+        Exit = 6;
+    }
+
+    @Override
+    public void PagoMensual(){
+        CalculoFS calculoFS = new CalculoFS();
+        System.out.println("Ingrese cuanto paga al mes por su factura de electricidad:");
+        double pagoM = scan.nextInt();
+        calculoFS.Calcular(pagoM);
+        double Kwatts = calculoFS.getKwatts();
+        System.out.println("Su consumo mensual de energía es de: "+df.format(Kwatts)+"Kwatts");
+        // Print results
+        calcular(Kwatts, pagoM);
+        Exit = 6;
+    }
+
+    @Override
+    public void info(){
+        System.out.println("Informacion de tarifas y precios obtenidas de:");
+        System.out.println("Tarifas: Eegsa");
+        System.out.println("Precios: Aisa (Solar)");
+        opcion = 0;
+    }
+
+    @Override
+    public void Electrodomesticos(){
+        ElectrodomesticosManager manager = new ElectrodomesticosList();
+        String nombre;
+        double consumoEnergetico;
+        int cantidad;
+        System.out.println("");
+            while (true){
+                System.out.println("Ingrese el electrodomestico que desea agregar: ");
+                nombre = scan.nextLine();
+                nombre = scan.nextLine();
+                System.out.println("Ingrese el consumo energetico del electrodomestico: ");
+                consumoEnergetico = scan.nextDouble();
+                System.out.println("Ingrese la cantidad de electrodomesticos: ");
+                cantidad = scan.nextInt();
+                Electrodomestico electrodomestico = new Electrodomestico(nombre, consumoEnergetico, cantidad);
+                manager.agregarElectrodomestico(electrodomestico);
+                System.out.println("Electrodomestico agregado!");
+                System.out.println("Liste de electrodomésticos agregados");
+                manager.mostrarElectrodomesticos();
+                System.out.println("Desea agregar otro electrodomestico? (s/n)");
+                String respuesta = scan.next();
+                if (respuesta.equals("n")) {
+                    manager.calcularConsumoTotal();
+                    break;
+
+                }
+            }
+            opcion = 0;
+    }
+
+    @Override
+    public void Error(){
+        System.out.println("Error, ingrese una opcion valida");
+        opcion = 0;
+    }
+
+    @Override
+    public Boolean run() {
+        return (Exit != 6);
+    }
+
+    @Override
+    public void Salir(){
+        System.out.println("Gracias por usar nuestro programa!");
+        Exit = 6;
+    }
+
+    @Override
+    public int Show() {
+        if (opcion == 0){
+            return 0;
+        } else if (opcion == 1){
+            return 1;
+        } else if (opcion == 2){
+            return 2;
+        } else if (opcion == 3){
+            return 3;
+        } else if (opcion == 4){
+            return 4;
+        } else if (opcion == 5){
+            return 5;
+        } else {
+            return 6;
+        }
     }
 }

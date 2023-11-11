@@ -1,4 +1,4 @@
-public class CalculoKW implements Funciones{
+public class CalculoKW{
     private static double Kwatts;
     private static double valorFactura;
     private static double facturaIVA;
