@@ -1,7 +1,7 @@
-package View;
+package Controller;
 
-import Controller.MenuUI;
-import Model.Funciones;
+import View.Funciones;
+import View.MenuUI;
 
 public class Driver {
     
