@@ -1,5 +1,6 @@
 package View;
 
+
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import Model.CreatorCSV;
 import Model.ValorFuturo;
 import Model.Electrodomestico;
 import Model.ElectrodomesticosList;
-
+import Controller.Wait;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ public class MenuUI implements Funciones {
     Scanner scan = new Scanner(System.in);
     int Exit = 0;
     int opcion = 0;
+    
     
     /**
      * 
@@ -36,29 +38,28 @@ public class MenuUI implements Funciones {
         System.out.println("3.Mostrar fuentes de informacion");
         System.out.println("4.Calcular por electrodoméstico");
         System.out.println("5.Salir");
-        String Opciones = scan.nextLine();
-        
-        
+        String Opciones1 = scan.nextLine();
+        int Opciones = Integer.parseInt(Opciones1);
 
-        if (Opciones.equals("1")){
-            opcion = 1;
-
-
-        } else if (Opciones.equals("2")){
-            opcion = 2;
-
-        } else if (Opciones.equals("3")){
-            opcion = 3;
-            
-        }
-        else if (Opciones.equals("4")){
-            opcion = 4;
-        }
-        else if (Opciones.equals("5")){
-            opcion = 5;
-        }
-        else{
-            opcion = 6;
+        switch (Opciones) {
+            case 1:
+                opcion = 1;
+                break;
+            case 2:
+                opcion = 2;
+                break;
+            case 3:
+                opcion = 3;
+                break;
+            case 4:
+                opcion = 4;
+                break;
+            case 5:
+                opcion = 5;
+                break;
+            default:
+                opcion = 6;
+                break;
         }
     }
 
@@ -74,13 +75,25 @@ public class MenuUI implements Funciones {
 
         newT.add(df.format(Kwatts));
         newT.add(df.format(pagoM));
+        
+        
+        System.out.println("\n");
+        System.out.println("Calculando...");
+        Wait.sleep(2000);
+        System.out.println("\n");
+        System.out.println("**********************************************************************************************************************************");
         System.out.println("El panel solar que mas le conviene es de capacidad de: "+calculoPS.getCapacidad()+"Kwatts");
         newT.add(Double.toString(calculoPS.getCapacidad()));
-        System.out.println("El precio del panel solar que más le conviene  según su consumo de energía es de: Q"+df.format(preciopanel));
+        Wait.sleep(500);
+        System.out.println("El precio del panel solar que más le conviene según su consumo de energía es de: Q"+df.format(preciopanel));
         newT.add(Double.toString(preciopanel));
+        Wait.sleep(500);
         System.out.println("Mas un costo de instalacion de Q4500.00");
+        Wait.sleep(500);
         System.out.println("El excedente del consumo mensual de energía se lo tendrá que pagar a Eegsa, y sería un total de Q"+df.format(tarifarestante));
         newT.add(df.format(tarifarestante));
+        Wait.sleep(1000);
+        System.out.println("\n");
         if (valorFuturo.ValorPresenteNeto(preciopanel, pagoM, tarifarestante)){
             System.out.println("Le conviene comprar el panel solar, la compra se compensara en 8 años");
             newT.add("Si");
@@ -196,4 +209,5 @@ public class MenuUI implements Funciones {
             return 6;
         }
     }
+
 }

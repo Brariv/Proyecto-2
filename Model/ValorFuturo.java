@@ -1,6 +1,8 @@
 package Model;
 public class ValorFuturo {
     
+    //Generado Con IA, "Has un codigo en java que calcule el valor valor presente neto inversion a 9 años, con la formula de valor presente neto"
+
     public Boolean ValorPresenteNeto(double Vp, double g, double a){
         double VPN = 0;
         double p = g - a;
