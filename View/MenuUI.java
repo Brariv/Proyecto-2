@@ -10,7 +10,6 @@ import Model.CalculoKW;
 import Model.CalculoPS;
 import Model.CreatorCSV;
 import Model.ValorFuturo;
-import Model.Electrodomestico;
 import Model.ElectrodomesticosList;
 import Controller.Wait;
 import Model.ECocina;
