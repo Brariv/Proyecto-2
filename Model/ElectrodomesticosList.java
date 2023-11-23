@@ -8,8 +8,18 @@ public class ElectrodomesticosList implements ElectrodomesticoManager {
     private List<Electrodomestico> electrodomesticos = new ArrayList<>();
 
     @Override
-    public void agregarElectrodomestico(Electrodomestico electrodomestico) {
-        electrodomesticos.add(electrodomestico);
+    public void agregarCocina(ECocina cocina) {
+        electrodomesticos.add(cocina);
+    }
+
+    @Override
+    public void agregarEntretenimiento(EEntretenimiento entretenimiento) {
+        electrodomesticos.add(entretenimiento);
+    }
+
+    @Override
+    public void agregarLimpieza(ELimpieza limpieza) {
+        electrodomesticos.add(limpieza);
     }
 
     @Override

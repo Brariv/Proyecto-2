@@ -1,7 +1,10 @@
 package Model;
 
 public interface ElectrodomesticoManager {
-    void agregarElectrodomestico(Electrodomestico electrodomestico);
+    void agregarCocina(ECocina cocina);
     void calcularConsumoTotal();
     void mostrarElectrodomesticos();
+    void agregarEntretenimiento(EEntretenimiento entretenimiento);
+    void agregarLimpieza(ELimpieza limpieza);
+
 }

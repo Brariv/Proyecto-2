@@ -13,6 +13,9 @@ import Model.ValorFuturo;
 import Model.Electrodomestico;
 import Model.ElectrodomesticosList;
 import Controller.Wait;
+import Model.ECocina;
+import Model.EEntretenimiento;
+import Model.ELimpieza;
 
 import java.util.Random;
 
@@ -151,13 +154,45 @@ public class MenuUI implements Funciones {
         while (true) {
             System.out.println("Ingrese el electrodoméstico que desea agregar: ");
             nombre = scan.nextLine();
-            nombre = scan.nextLine();
             System.out.println("Ingrese el consumo energético del electrodoméstico: ");
             consumoEnergetico = scan.nextDouble();
             System.out.println("Ingrese la cantidad de electrodomésticos: ");
             cantidad = scan.nextInt();
-            Electrodomestico electrodomestico = new Electrodomestico(nombre, consumoEnergetico, cantidad);
-            manager.agregarElectrodomestico(electrodomestico);
+            
+            System.out.println("Ingrese el tipo de electrodoméstico (1 - ECocina, 2 - EEntretenimiento, 3 - ELimpieza): ");
+            int tipo = scan.nextInt();
+            ECocina cocina;
+            ELimpieza limpieza;
+            EEntretenimiento entretenimiento;
+            switch (tipo) {
+                case 1:
+                        switch (tipo) {
+                            case 1:
+                                System.out.println("Ingrese el dato extra para el tipo ECocina: ");
+                                int temperatura = scan.nextInt();
+                                cocina = new ECocina(nombre, consumoEnergetico, cantidad, temperatura);
+                                manager.agregarCocina(cocina);
+                                break;
+                            case 2:
+                                System.out.println("Ingrese el dato extra para el tipo ELimpieza: ");
+                                boolean automatico = scan.nextBoolean();
+                                limpieza = new ELimpieza(nombre, consumoEnergetico, cantidad, automatico);
+                                manager.agregarLimpieza(limpieza);
+                                break;
+                            case 3:
+                                System.out.println("Ingrese el dato extra para el tipo EEntretenimiento: ");
+                                int pulgadas = scan.nextInt();
+                                entretenimiento = new EEntretenimiento(nombre, consumoEnergetico, cantidad, pulgadas);
+                                manager.agregarEntretenimiento(entretenimiento);
+                                break;
+                            default:
+                                continue;
+                        }
+                        break;
+                default:
+                    continue;
+            }
+            
             System.out.println("Electrodoméstico agregado!");
             System.out.println("Lista de electrodomésticos agregados");
             manager.mostrarElectrodomesticos();
