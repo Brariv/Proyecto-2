@@ -9,5 +9,7 @@ public class AppTest {
     public void testValorPresenteNeto() {
         ValorFuturo valorFuturo = new ValorFuturo();
         assertEquals(true, valorFuturo.ValorPresenteNeto(34000, 473, 30));
+        assertEquals(false, valorFuturo.ValorPresenteNeto(86810, 473, 30));
+        assertEquals(true, valorFuturo.ValorPresenteNeto(86810, 2700, 1340));
     }
 }
